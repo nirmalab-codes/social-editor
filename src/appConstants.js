@@ -1,1 +1,1 @@
-export const accessKey = '<UNSPLASH_API_ACCESS_KEY>';
+export const accessKey = "XddHq7eApCS98j0wEslxIuCF12tZUgsSZQek";

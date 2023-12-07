@@ -1,11 +1,11 @@
 import React from "react";
-import { useObserver } from "mobx-react";
+import { Observer, observer } from "mobx-react";
 
 import { ReactComponent as Save } from "../../assets/save.svg";
 import Tooltip from "../Tooltip";
 import useStore from "../../hooks/useStore";
 
-const SaveButton: React.FC = () => {
+export const SaveButton: React.FC = () => {
   const { canvasStore, imageStore, UIStore } = useStore();
   const saveImage = () => {
     if (!imageStore.url || UIStore.isToolbarOpen) {
@@ -23,15 +23,19 @@ const SaveButton: React.FC = () => {
     link.remove();
   };
 
-  return useObserver(() => (
-    <Tooltip content="Save" placement="bottom">
-      <Save
-        className={`${
-          !imageStore.url || UIStore.isToolbarOpen ? "disabled" : ""
-        }`}
-        onClick={saveImage}
-      />
-    </Tooltip>
-  ));
+  return (
+    <Observer>
+      {() => (
+        <Tooltip content="Save" placement="bottom">
+          <Save
+            className={`${!imageStore.url || UIStore.isToolbarOpen ? "disabled" : ""
+              }`}
+            onClick={saveImage}
+          />
+        </Tooltip>
+      )}
+    </Observer>
+  );
 };
-export default SaveButton;
+
+export default observer(SaveButton);

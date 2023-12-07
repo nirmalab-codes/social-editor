@@ -1,4 +1,4 @@
-import { useObserver } from "mobx-react";
+import { observer, Observer } from "mobx-react";
 import React, { useRef, useEffect } from "react";
 import useStore from "../hooks/useStore";
 
@@ -13,16 +13,17 @@ const Canvas = () => {
       return;
     }
     rootStore.addCanvasToDocument(canvasEl);
-  }, [canvasEl]);
+  }, [canvasEl, rootStore]);
 
-  return useObserver(() => (
-    <section
-      className={`canvas custom-scrollbar ${
-        UIStore.isToolbarOpen ? "canvas_toolbar-open" : ""
-      }`}
-      ref={canvasRef}>
-    </section>
-  ));
+  return (
+    <Observer>{() => (
+      <section
+        className={`canvas custom-scrollbar ${UIStore.isToolbarOpen ? "canvas_toolbar-open" : ""
+          }`}
+        ref={canvasRef}
+      ></section>
+    )}</Observer>
+  );
 };
 
-export default Canvas;
+export default observer(Canvas);

@@ -21,31 +21,19 @@
     "no-shadow": "error",
     "no-undef-init": "error",
     "array-bracket-spacing": "error",
-    "array-element-newline": [
-      "error",
-      "consistent"
-    ],
+    "array-element-newline": ["error", "consistent"],
     "block-spacing": "error",
     "brace-style": "error",
-    "comma-dangle": [
-      "error",
-      "always-multiline"
-    ],
+    "comma-dangle": ["error", "always-multiline"],
     "comma-spacing": "error",
     "computed-property-spacing": "error",
-    "eol-last": [
-      "error",
-      "never"
-    ],
+    "eol-last": ["error", "never"],
     "keyword-spacing": "error",
     // "lines-between-class-members": "error",
-    "max-len": "error",
+    // "max-len": "error",
     "no-multiple-empty-lines": "error",
     "no-trailing-spaces": "error",
-    "quote-props": [
-      "error",
-      "as-needed"
-    ],
+    "quote-props": ["error", "as-needed"],
     "quotes": [
       "error",
       "double",
@@ -54,6 +42,19 @@
       }
     ],
     "semi": "error",
-    "space-before-blocks": "error"
+    "space-before-blocks": "error",
+    "import/no-anonymous-default-export": [
+      "error",
+      {
+        "allowArray": true,
+        "allowArrowFunction": true,
+        "allowAnonymousClass": true,
+        "allowAnonymousFunction": true,
+        "allowCallExpression": true, // The true value here is for backward compatibility
+        "allowNew": true,
+        "allowLiteral": true,
+        "allowObject": true
+      }
+    ]
   }
 }

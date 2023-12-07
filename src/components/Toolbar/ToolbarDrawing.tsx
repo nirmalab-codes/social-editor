@@ -1,13 +1,13 @@
 import React from "react";
-import { useObserver } from "mobx-react";
+import { observer } from "mobx-react";
 import Slider from "../Slider";
 import ColorPicker from "../ColorPicker";
 import useStore from "../../hooks/useStore";
 import ToggleButton from "../ToggleButton";
 
-const ToolbarDrawing: React.FC = () => {
+const ToolbarDrawing: React.FC = observer(() => {
   const { drawingStore } = useStore();
-  return useObserver(() => (
+  return (
     <div className="toolbar__content">
       <ColorPicker
         title="Colors"
@@ -34,7 +34,7 @@ const ToolbarDrawing: React.FC = () => {
         callback={() => drawingStore.toggleFreeDrawingMode()}
       />
     </div>
-  ));
-};
+  );
+});
 
 export default ToolbarDrawing;

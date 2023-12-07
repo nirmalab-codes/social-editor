@@ -1,4 +1,4 @@
-import { CropperStore } from "./cropperStore"
+import { CropperStore } from "./cropperStore";
 import { CanvasStore } from "./canvasStore";
 import { DrawingStore } from "./drawingStore";
 import { TextStore } from "./textStore";

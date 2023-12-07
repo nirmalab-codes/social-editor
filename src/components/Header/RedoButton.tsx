@@ -1,12 +1,12 @@
 import React from "react";
-import { useObserver } from "mobx-react";
+import { observer } from "mobx-react";
 import Tooltip from "../Tooltip";
 import useStore from "../../hooks/useStore";
 import { ReactComponent as Redo } from "../../assets/redo.svg";
 
-export const RedoButton = () => {
-  const {UIStore, canvasStore} = useStore();
-  return useObserver(() => (
+export const RedoButton = observer(() => {
+  const { UIStore, canvasStore } = useStore();
+  return (
     <div>
       <Tooltip content="Redo" placement="bottom">
         <Redo
@@ -20,7 +20,7 @@ export const RedoButton = () => {
         />
       </Tooltip>
     </div>
-  ));
-};
+  );
+});
 
 export default RedoButton;

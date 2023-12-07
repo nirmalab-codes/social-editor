@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import Gallery, { PhotoProps, PhotoClickHandler } from "react-photo-gallery";
+import Gallery, { Photo, ClickHandler } from "react-photo-album";
 
 import useUnsplashAPI, { Image } from "../../hooks/useUnsplashAPI";
 import { ReactComponent as Search } from "../../assets/search2.svg";
 import { ReactComponent as Loader } from "../../assets/loader.svg";
 import useStore from "../../hooks/useStore";
-import { useObserver } from "mobx-react";
+import { observer } from "mobx-react";
 
-export const ToolbarSearch: React.FC = () => {
+export const ToolbarSearch: React.FC = observer(() => {
   const {
     imageStore,
     UIStore,
@@ -20,13 +20,13 @@ export const ToolbarSearch: React.FC = () => {
   } = useUnsplashAPI();
   const [inputValue, setInputValue] = useState("");
 
-  const handleImageClick: PhotoClickHandler = async (event, photos) => {
-    const imageUrl = search.images[photos.index].url;
+  const handleImageClick: ClickHandler = async (props) => {
+    const imageUrl = search.images[props.index].url;
     await imageStore.load(imageUrl);
     UIStore.closeToolbar();
   };
 
-  const galleryPhotoProp: PhotoProps[] = search.images.map(
+  const galleryPhotoProp: Photo[] = search.images.map(
     (image: Image) => {
       return {
         width: image.width,
@@ -36,7 +36,7 @@ export const ToolbarSearch: React.FC = () => {
     },
   );
 
-  return useObserver(() => (
+  return (
     <div className="toolbar__content unsplash-gallery__container">
       <div className="unsplash-gallery custom-scrollbar">
         <form
@@ -63,24 +63,24 @@ export const ToolbarSearch: React.FC = () => {
           />
         </form>
         {search.images.length && !search.isError ? (
-        <div className="unsplash-gallery__navbar">
-          {search.currentPage !== 1 && (
-            <button
-              className="unsplash-gallery__prev-btn"
-              onClick={goToPrevPage}
-            >
-              Previous
-            </button>
-          )}
-          {search.currentPage !== search.totalPages && (
-            <button
-              className="unsplash-gallery__next-btn"
-              onClick={goToNextPage}
-            >
-              Next
-            </button>
-          )}
-        </div>
+          <div className="unsplash-gallery__navbar">
+            {search.currentPage !== 1 && (
+              <button
+                className="unsplash-gallery__prev-btn"
+                onClick={goToPrevPage}
+              >
+                Previous
+              </button>
+            )}
+            {search.currentPage !== search.totalPages && (
+              <button
+                className="unsplash-gallery__next-btn"
+                onClick={goToNextPage}
+              >
+                Next
+              </button>
+            )}
+          </div>
         ) : null}
         {search.isError && (
           <div className="unsplash-gallery__error">
@@ -88,20 +88,20 @@ export const ToolbarSearch: React.FC = () => {
           </div>
         )}
         {search.isLoading
-        ? <div className="unsplash-gallery__loader"><Loader/></div>
-        : search.images.length
-          ? (
-            <div className="unsplash-gallery__photos">
-              <Gallery photos={galleryPhotoProp} onClick={handleImageClick}/>
-            </div>
-          )
-          : !search.isError
-            ? <div className="unsplash-gallery__error">No results</div>
-            : null
+          ? <div className="unsplash-gallery__loader"><Loader /></div>
+          : search.images.length
+            ? (
+              <div className="unsplash-gallery__photos">
+                <Gallery photos={galleryPhotoProp} onClick={handleImageClick} layout={"columns"} />
+              </div>
+            )
+            : !search.isError
+              ? <div className="unsplash-gallery__error">No results</div>
+              : null
         }
       </div>
     </div>
-  ));
-};
+  );
+});
 
 export default ToolbarSearch;

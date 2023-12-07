@@ -1,12 +1,12 @@
 import React from "react";
-import { useObserver } from "mobx-react";
+import { observer } from "mobx-react";
 import Tooltip from "../Tooltip";
 import useStore from "../../hooks/useStore";
 import { ReactComponent as Undo } from "../../assets/undo.svg";
 
-export const UndoButton = () => {
-  const {UIStore, canvasStore} = useStore();
-  return useObserver(() => (
+export const UndoButton = observer(() => {
+  const { UIStore, canvasStore } = useStore();
+  return (
     <div>
       <Tooltip content="Undo" placement="bottom">
         <Undo
@@ -20,7 +20,7 @@ export const UndoButton = () => {
         />
       </Tooltip>
     </div>
-  ));
-};
+  );
+});
 
 export default UndoButton;

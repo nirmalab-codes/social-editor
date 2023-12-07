@@ -1,13 +1,13 @@
 import React from "react";
-import { useObserver } from "mobx-react";
+import { observer } from "mobx-react";
 import Slider from "../Slider";
 import useStore from "../../hooks/useStore";
 import ColorPicker from "../ColorPicker";
 import { hexToRgb } from "../../helpers/colorConverter";
 
-export const ToolbarEffects = () => {
-  const {imageStore: image} = useStore();
-  return useObserver(() => (
+export const ToolbarEffects = observer(() => {
+  const { imageStore: image } = useStore();
+  return (
     <div className="toolbar__content">
       <Slider
         title="Brightness"
@@ -85,8 +85,8 @@ export const ToolbarEffects = () => {
         className="toolbar__action-btn"
         onClick={() => image.effects.resetAll()}
       >Reset</button>
-  </div>
-  ));
-};
+    </div>
+  );
+});
 
 export default ToolbarEffects;

@@ -8,7 +8,7 @@ import { ReactComponent as Search } from "../assets/search.svg";
 import { ReactComponent as Adjust } from "../assets/adjust.svg";
 import Tooltip from "./Tooltip";
 import useStore from "../hooks/useStore";
-import { useObserver } from "mobx-react";
+import { Observer } from "mobx-react";
 import { ModeName } from "../stores/canvasStore";
 
 interface IMenuItems {
@@ -72,27 +72,29 @@ const Menu: React.FC = () => {
       handler: () => handleClick("effects"),
     },
   ];
-  return useObserver(() => (
+  return (
     <section className="menu">
       <div className="menu__wrapper">
-        {items.map((item, index) => {
-          const tooltip = item.tooltip || item.name;
-          return (
-            <Tooltip key={index} content={tooltip} placement="right">
-              <div
-                className={`menu__item ${
-                  canvasStore.mode === item.name ? "menu__item_active" : ""
-                } ${!imageStore.url && item.name !== "search" ? "disabled" : ""}`}
-                onClick={item.handler}
-              >
-                {item.icon}
-              </div>
-            </Tooltip>
-          );
-        })}
+        {items.map((item) => (
+          <div key={item.name}>
+            <Observer>
+              {() => (
+                <Tooltip content={item.tooltip || item.name} placement="right">
+                  <div
+                    className={`menu__item ${canvasStore.mode === item.name ? "menu__item_active" : ""
+                      } ${!imageStore.url && item.name !== "search" ? "disabled" : ""}`}
+                    onClick={item.handler}
+                  >
+                    {item.icon}
+                  </div>
+                </Tooltip>
+              )}
+            </Observer>
+          </div>
+        ))}
       </div>
     </section>
-  ));
+  );
 };
 
 export default Menu;

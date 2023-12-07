@@ -60,7 +60,7 @@ const useUnsplashAPI = () => {
         fetchData();
       }
     });
-  }, []);
+  }, [searchStore]);
 
   return {
     loadImages,

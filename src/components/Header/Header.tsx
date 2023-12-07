@@ -5,11 +5,11 @@ import RedoButton from "./RedoButton";
 import UndoButton from "./UndoButton";
 import ZoomControl from "./ZoomControl";
 import useStore from "../../hooks/useStore";
-import { useObserver } from "mobx-react";
+import { observer } from "mobx-react";
 
-const Header: React.FC = () => {
-  const {UIStore} = useStore();
-  return useObserver(() => (
+const Header: React.FC = observer(() => {
+  const { UIStore } = useStore();
+  return (
     <header
       className={`header ${UIStore.isToolbarOpen ? "header_toolbar-open" : ""}`}
     >
@@ -27,7 +27,7 @@ const Header: React.FC = () => {
         </div>
       </div>
     </header>
-  ));
-};
+  );
+});
 
 export default Header;
