@@ -21,7 +21,7 @@ export const ToolbarSearch: React.FC = observer(() => {
   const [inputValue, setInputValue] = useState("");
 
   const handleImageClick: ClickHandler = async (props) => {
-    const imageUrl = search.images[props.index].url;
+    const imageUrl = search.images[props.index].url_regular;
     await imageStore.load(imageUrl);
     UIStore.closeToolbar();
   };

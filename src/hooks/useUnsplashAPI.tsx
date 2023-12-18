@@ -6,6 +6,7 @@ import { autorun } from "mobx";
 
 export type Image = {
   url: string;
+  url_regular: string;
   width: number;
   height: number;
 }
@@ -45,8 +46,10 @@ const useUnsplashAPI = () => {
           );
           const data = await toJson(response);
           const images: Image[] = data.results.map((item: any) => {
+            // console.log(item.urls);
             return {
-              url: item.urls.regular,
+              url: item.urls.thumb,
+              url_regular: item.urls.regular,
               width: item.width,
               height: item.height,
             };
