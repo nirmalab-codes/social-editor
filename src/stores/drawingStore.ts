@@ -4,6 +4,7 @@ import {
   computed,
   reaction,
   IReactionDisposer,
+  makeObservable,
 } from "mobx";
 import { RootStore } from "./rootStore";
 
@@ -38,6 +39,7 @@ export class DrawingStore {
   private currentMode: IDrawingMode;
 
   constructor(private readonly root: RootStore) {
+    makeObservable(this);
     root.objectManagerStore.registerObject(this.OBJ_NAME);
     this.canvas = root.canvasStore.instance;
     this.freeDrawing = new FreeDrawing(this.canvas, this);

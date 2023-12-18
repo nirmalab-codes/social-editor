@@ -14,6 +14,7 @@ import ToolbarEffects from "./ToolbarEffects";
 
 
 const Toolbar: React.FC = observer(() => {
+  const nodeRef = React.useRef(null);
   const { UIStore, canvasStore } = useStore();
   const contentMap: { [name: string]: JSX.Element } = {
     search: <ToolbarSearch />,
@@ -32,6 +33,7 @@ const Toolbar: React.FC = observer(() => {
             <CSSTransition
               timeout={0}
               classNames="toolbar"
+              nodeRef={nodeRef}
             >
               <section className={`toolbar custom-scrollbar ${canvasStore.mode === "search" ? "toolbar_search" : ""
                 }`}>

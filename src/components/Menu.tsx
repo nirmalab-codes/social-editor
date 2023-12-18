@@ -23,6 +23,7 @@ const Menu: React.FC = () => {
 
   const handleClick = (modeName: ModeName) => {
     if (!imageStore.url && modeName !== "search") {
+      alert("Choose Image First");
       return;
     }
 
