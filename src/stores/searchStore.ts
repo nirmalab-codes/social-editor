@@ -1,4 +1,4 @@
-import { observable, action } from "mobx";
+import { observable, action, makeObservable } from "mobx";
 import { RootStore } from "./rootStore";
 
 export class SearchStore {
@@ -10,7 +10,9 @@ export class SearchStore {
   @observable keyword: string = "dark";
   @observable isLoaded: boolean = false;
 
-  constructor(public root: RootStore) {}
+  constructor(public root: RootStore) {
+    makeObservable(this);
+  }
 
   @action setKeyword(keyword: string): void {
     this.keyword = keyword;
